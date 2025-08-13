@@ -1,6 +1,6 @@
 import { ArrowRight, BarChart3, Eye, Zap } from "lucide-react";
 import ContactForm from "@/components/contact-form";
-import logoPath from "@assets/logo_4_1755037461749.png";
+import logoPath from "@assets/arknos_logo_top_left_transparent_1755122038077.png";
 
 export default function Home() {
   const scrollToContact = () => {
@@ -11,16 +11,22 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 relative overflow-hidden">
+      {/* Background animated elements */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-navy-900/10 to-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-navy-900/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-br from-navy-900/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+      </div>
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-white/95 backdrop-blur-sm shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img 
                 src={logoPath} 
                 alt="Arknos Technologies Logo" 
-                className="h-16 w-auto" 
+                className="h-20 w-auto" 
                 data-testid="img-logo"
               />
             </div>
@@ -38,7 +44,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-white to-slate-100 py-24 sm:py-32">
+      <section className="relative py-24 sm:py-32 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center animate-fade-in">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
@@ -66,7 +72,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white/80 backdrop-blur-sm relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">
@@ -114,7 +120,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-slate-50 to-white">
+      <section id="contact" className="py-20 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
@@ -130,13 +136,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy-900 text-white py-12">
+      <footer className="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <img 
               src={logoPath} 
               alt="Arknos Technologies" 
-              className="h-12 w-auto mx-auto mb-4 filter brightness-0 invert" 
+              className="h-16 w-auto mx-auto mb-4" 
               data-testid="img-logo-footer"
             />
             <p className="text-slate-400 mb-4">
