@@ -20,7 +20,7 @@ export default function Home() {
               <img 
                 src={logoPath} 
                 alt="Arknos Technologies Logo" 
-                className="h-10 w-auto" 
+                className="h-16 w-auto" 
                 data-testid="img-logo"
               />
             </div>
@@ -136,7 +136,7 @@ export default function Home() {
             <img 
               src={logoPath} 
               alt="Arknos Technologies" 
-              className="h-8 w-auto mx-auto mb-4 filter brightness-0 invert" 
+              className="h-12 w-auto mx-auto mb-4 filter brightness-0 invert" 
               data-testid="img-logo-footer"
             />
             <p className="text-slate-400 mb-4">
