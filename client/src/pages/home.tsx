@@ -1,6 +1,7 @@
 import { ArrowRight, BarChart3, Eye, Zap } from "lucide-react";
 import ContactForm from "@/components/contact-form";
-import logoPath from "@assets/arknos_logo_top_left_transparent_1755122038077.png";
+import logoPath from "@assets/arknos_logo_top_left_transparent_2x_1755122660804.png";
+import footerLogoPath from "@assets/arknos_logo_top_left_white_transparent_2x_1755122669442.png";
 
 export default function Home() {
   const scrollToContact = () => {
@@ -13,10 +14,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 relative overflow-hidden">
       {/* Background animated elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-navy-900/10 to-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-navy-900/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-br from-navy-900/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-navy-900/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-20 w-[32rem] h-[32rem] bg-gradient-to-br from-blue-500/25 to-navy-900/25 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-br from-navy-900/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/4 left-1/2 w-64 h-64 bg-gradient-to-br from-blue-400/15 to-navy-800/15 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-navy-700/20 to-blue-600/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '3s'}}></div>
       </div>
       {/* Header */}
       <header className="bg-white/95 backdrop-blur-sm shadow-sm border-b border-slate-200 sticky top-0 z-50">
@@ -26,7 +29,7 @@ export default function Home() {
               <img 
                 src={logoPath} 
                 alt="Arknos Technologies Logo" 
-                className="h-20 w-auto" 
+                className="h-32 w-auto" 
                 data-testid="img-logo"
               />
             </div>
@@ -140,7 +143,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <img 
-              src={logoPath} 
+              src={footerLogoPath} 
               alt="Arknos Technologies" 
               className="h-16 w-auto mx-auto mb-4" 
               data-testid="img-logo-footer"
