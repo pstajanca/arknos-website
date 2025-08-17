@@ -12,7 +12,13 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  // Use Netlify Functions for contact form in production
+  const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.includes('5000');
+  const finalUrl = isProduction && url === '/api/contact' 
+    ? '/.netlify/functions/contact' 
+    : url;
+
+  const res = await fetch(finalUrl, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
