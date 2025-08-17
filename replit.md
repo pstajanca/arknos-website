@@ -1,6 +1,6 @@
 # Overview
 
-This is a modern full-stack web application for Arknos Technologies, a data analytics consulting company. The application serves as a corporate website with a contact form system that handles client inquiries. It features a clean, professional design with a focus on data analytics services and includes email functionality to notify the company of new contact form submissions.
+This is a modern full-stack web application for Arknos Technologies, a high-tech startup that develops advanced sensing and monitoring solutions. The application serves as a professional landing page with animated backgrounds, high-quality branding, and a contact form system. It features an industrial high-tech design with navy/blue color scheme and includes email functionality for client inquiries. The project is fully configured for easy Netlify deployment.
 
 # User Preferences
 
