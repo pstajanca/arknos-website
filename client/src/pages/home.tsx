@@ -1,7 +1,7 @@
 import { ArrowRight, BarChart3, Eye, Zap } from "lucide-react";
 import ContactForm from "@/components/contact-form";
-import logoPath from "@assets/arknos_logo_blue_2000px_1755123589806.png";
-import footerLogoPath from "@assets/arknos_logo_white_2000px_1755123596889.png";
+import logoPath from "@assets/Arknos blue_cropped_1755442237174.png";
+import footerLogoPath from "@assets/Arknos white_cropped_1755442242126.png";
 
 export default function Home() {
   const scrollToContact = () => {
