@@ -1,190 +1,154 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { insertContactSubmissionSchema } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send, Loader2 } from "lucide-react";
-import type { z } from "zod";
-
-type FormData = z.infer<typeof insertContactSubmissionSchema>;
 
 export default function ContactForm() {
   const { toast } = useToast();
-  
-  const form = useForm<FormData>({
-    resolver: zodResolver(insertContactSubmissionSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      company: "",
-      subject: "",
-      message: "",
-    },
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const contactMutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/contact", data);
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you as soon as possible.",
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
       });
-      form.reset();
-    },
-    onError: (error: any) => {
+
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        (e.target as HTMLFormElement).reset();
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
       toast({
         title: "Failed to send message",
-        description: error.message || "Please try again or contact us directly at info@arknos.tech",
+        description: "Please try again or contact us directly at info@arknos.tech",
         variant: "destructive",
       });
-    },
-  });
-
-  const onSubmit = (data: FormData) => {
-    contactMutation.mutate(data);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <FormField
-              control={form.control}
+      <form 
+        name="contact" 
+        method="POST" 
+        data-netlify="true" 
+        onSubmit={handleSubmit}
+        className="space-y-6"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+              Name *
+            </label>
+            <Input
+              id="name"
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-slate-700">Name *</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Your full name"
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                      data-testid="input-name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              type="text"
+              required
+              placeholder="Your full name"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              data-testid="input-name"
             />
-            
-            <FormField
-              control={form.control}
+          </div>
+          
+          <div>
+            <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">
+              Company
+            </label>
+            <Input
+              id="company"
               name="company"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-medium text-slate-700">Company</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Your company name"
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                      data-testid="input-company"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              type="text"
+              placeholder="Your company name"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              data-testid="input-company"
             />
           </div>
+        </div>
 
-          <FormField
-            control={form.control}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+            Email *
+          </label>
+          <Input
+            id="email"
             name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-slate-700">Email *</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="your.email@company.com"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                    data-testid="input-email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            type="email"
+            required
+            placeholder="your.email@company.com"
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            data-testid="input-email"
           />
+        </div>
 
-          <FormField
-            control={form.control}
+        <div>
+          <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
+            Subject
+          </label>
+          <Input
+            id="subject"
             name="subject"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-slate-700">Subject</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Brief description of your challenge"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                    data-testid="input-subject"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            type="text"
+            placeholder="Brief description of your challenge"
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            data-testid="input-subject"
           />
+        </div>
 
-          <FormField
-            control={form.control}
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
+            Message *
+          </label>
+          <Textarea
+            id="message"
             name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-slate-700">Message *</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us about your measurement challenge and requirements..."
-                    rows={5}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
-                    data-testid="textarea-message"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            required
+            placeholder="Tell us about your measurement challenge and requirements..."
+            rows={5}
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
+            data-testid="textarea-message"
           />
+        </div>
 
-          <div className="text-center pt-4">
-            <Button
-              type="submit"
-              disabled={contactMutation.isPending}
-              className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-navy-900 hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              data-testid="button-submit"
-            >
-              {contactMutation.isPending ? (
-                <>
-                  <Loader2 className="mr-3 h-5 w-5 animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  Send Message
-                  <Send className="ml-3 -mr-1 h-5 w-5" />
-                </>
-              )}
-            </Button>
-          </div>
-        </form>
-      </Form>
+        <div className="text-center pt-4">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-navy-900 hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            data-testid="button-submit"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                Sending...
+              </>
+            ) : (
+              <>
+                Send Message
+                <Send className="ml-3 -mr-1 h-5 w-5" />
+              </>
+            )}
+          </Button>
+        </div>
+      </form>
 
       <div className="mt-8 pt-8 border-t border-slate-200 text-center">
         <p className="text-slate-600 mb-2">Or reach us directly at:</p>

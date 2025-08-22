@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, Eye, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ContactForm from "@/components/contact-form";
 import logoPath from "@assets/Arknos blue_cropped_1755442237174.png";
 import footerLogoPath from "@assets/Arknos white_cropped_1755442242126.png";
@@ -89,36 +89,11 @@ export default function Home() {
               We believe that all meaningful progress begins with understanding — and understanding begins with data. We help you capture it.
             </p>
             <p className="text-lg leading-relaxed text-slate-600">
-              Arknos Technologies develops advanced sensing and monitoring solutions to turn the physical world into actionable insight.
+              With rich experience spanning defence, industrial, medical and structural-health monitoring applications, Arknos Technologies develops advanced sensing and monitoring solutions to turn the physical world into actionable insight.
             </p>
           </div>
 
-          {/* Capability highlights */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BarChart3 className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-navy-900 mb-2">Advanced Sensing</h3>
-              <p className="text-slate-600">Cutting-edge sensors that capture critical data with precision and reliability.</p>
-            </div>
 
-            <div className="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Eye className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-navy-900 mb-2">Real-time Monitoring</h3>
-              <p className="text-slate-600">Continuous monitoring systems that provide instant insights and alerts.</p>
-            </div>
-
-            <div className="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-navy-900 mb-2">Actionable Insights</h3>
-              <p className="text-slate-600">Transform raw data into meaningful intelligence that drives decisions.</p>
-            </div>
-          </div>
         </div>
       </section>
 
