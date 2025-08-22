@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arknos Technologies - Advanced Sensing & Monitoring Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy-primary': '#1E3A5F',
+                        'navy-accent': '#2D5A87',
+                        'charcoal': '#2C3E50',
+                        'medium-gray': '#6C7B7F',
+                        'light-gray': '#F8F9FA'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-charcoal">
+    <!-- @COMPONENT: Header -->
+    <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <!-- Company Logo -->
+                    <img src="data:image/png;base64,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<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arknos Technologies - Progress Starts with Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'navy': {
+                            900: '#1a2332',
+                            800: '#243447',
+                            700: '#334155',
+                        },
+                        'slate': {
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1a2332 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="font-inter bg-slate-50 text-slate-900">
+    <!-- @COMPONENT: Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <!-- Company logo prominently displayed -->
+                    <img src="attached_assets/logo_4_1755037461749.png" alt="Arknos Technologies Logo" class="h-10 w-auto" />
+                </div>
+                <div class="hidden md:block">
+                    <a href="#contact" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-navy-900 hover:bg-navy-800 transition-all duration-200 transform hover:scale-105">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: Hero Section -->
+    <section class="relative bg-gradient-to-br from-white to-slate-100 py-24 sm:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center animate-fade-in">
+                <!-- Company credo prominently featured -->
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
+                    <span class="gradient-text">Progress starts</span>
+                    <br>
+                    <span class="text-navy-900">with data</span>
+                </h1>
+                
+                <!-- Subtle tagline -->
+                <p class="text-xl sm:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed animate-slide-up">
+                    Turning the physical world into actionable insight through advanced sensing and monitoring solutions
+                </p>
+                
+                <!-- CTA Button -->
+                <div class="mt-12 animate-slide-up">
+                    <a href="#contact" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-navy-900 hover:bg-navy-800 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                        Have a measurement challenge?
+                        <svg class="ml-3 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Hero Section -->
+
+    <!-- @COMPONENT: About Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">
+                    Understanding Through Data
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-navy-900 to-blue-500 mx-auto"></div>
+            </div>
+            
+            <!-- Company description clearly presented -->
+            <div class="prose prose-lg prose-slate mx-auto text-center">
+                <p class="text-xl leading-relaxed text-slate-700 mb-8">
+                    We believe that all meaningful progress begins with understanding — and understanding begins with data. We help you capture it.
+                </p>
+                <p class="text-lg leading-relaxed text-slate-600">
+                    Arknos Technologies develops advanced sensing and monitoring solutions to turn the physical world into actionable insight.
+                </p>
+            </div>
+
+            <!-- Capability highlights -->
+            <div class="grid md:grid-cols-3 gap-8 mt-16">
+                <div class="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-navy-900 mb-2">Advanced Sensing</h3>
+                    <p class="text-slate-600">Cutting-edge sensors that capture critical data with precision and reliability.</p>
+                </div>
+
+                <div class="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-navy-900 mb-2">Real-time Monitoring</h3>
+                    <p class="text-slate-600">Continuous monitoring systems that provide instant insights and alerts.</p>
+                </div>
+
+                <div class="text-center p-6 rounded-xl bg-slate-50 hover:bg-slate-100 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-navy-900 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-navy-900 mb-2">Actionable Insights</h3>
+                    <p class="text-slate-600">Transform raw data into meaningful intelligence that drives decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: About Section -->
+
+    <!-- @COMPONENT: Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-slate-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
+                    Let's Solve Your Measurement Challenge
+                </h2>
+                <p class="text-xl text-slate-600">
+                    Ready to turn your data into actionable insights? Get in touch with our team.
+                </p>
+            </div>
+
+            <!-- Contact form with professional styling -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <form class="space-y-6" data-implementation="Form should submit to info@arknos.tech">
+                    <!-- TODO: Implement form submission to info@arknos.tech -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Name *</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                   placeholder="Your full name" data-mock="true">
+                        </div>
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-slate-700 mb-2">Company</label>
+                            <input type="text" id="company" name="company" 
+                                   class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                   placeholder="Your company name" data-mock="true">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email *</label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                               placeholder="your.email@company.com" data-mock="true">
+                    </div>
+
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-slate-700 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject" 
+                               class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                               placeholder="Brief description of your challenge" data-mock="true">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Message *</label>
+                        <textarea id="message" name="message" rows="5" required 
+                                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
+                                  placeholder="Tell us about your measurement challenge and requirements..." data-mock="true"></textarea>
+                    </div>
+
+                    <!-- Professional CTA button -->
+                    <div class="text-center pt-4">
+                        <button type="submit" 
+                                class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-navy-900 hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                                data-event="click:handleSubmit" data-implementation="Should validate form and send email to info@arknos.tech">
+                            Send Message
+                            <svg class="ml-3 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Direct contact information -->
+                <div class="mt-8 pt-8 border-t border-slate-200 text-center">
+                    <p class="text-slate-600 mb-2">Or reach us directly at:</p>
+                    <a href="mailto:info@arknos.tech" class="text-lg font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200">
+                        info@arknos.tech
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Contact Section -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-navy-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <img src="attached_assets/logo_4_1755037461749.png" alt="Arknos Technologies" class="h-8 w-auto mx-auto mb-4 filter brightness-0 invert" />
+                <p class="text-slate-400 mb-4">
+                    Advanced sensing and monitoring solutions
+                </p>
+                <p class="text-sm text-slate-500">
+                    © 2024 Arknos Technologies. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // Smooth scrolling for anchor links
+        (function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Form validation and submission placeholder
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // TODO: Implement actual form submission to info@arknos.tech
+                    // This would typically involve:
+                    // 1. Form validation
+                    // 2. AJAX request to backend endpoint
+                    // 3. Email sending functionality
+                    // 4. Success/error feedback to user
+                    
+                    alert('Form submission functionality to be implemented with backend integration to info@arknos.tech');
+                });
+            }
+
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = '0s';
+                        entry.target.classList.add('animate-slide-up');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for animation
+            document.querySelectorAll('.grid > div').forEach(el => {
+                observer.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>
