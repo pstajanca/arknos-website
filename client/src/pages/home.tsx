@@ -127,7 +127,7 @@ export default function Home() {
               Advanced sensing and monitoring solutions
             </p>
             <p className="text-sm text-slate-500">
-              © 2024 Arknos Technologies. All rights reserved.
+              © 2025 Arknos Technologies. All rights reserved.
             </p>
           </div>
         </div>
